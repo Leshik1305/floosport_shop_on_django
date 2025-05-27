@@ -1,4 +1,3 @@
-
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -14,5 +13,10 @@ def catalog(request) -> HttpResponse:
     return render(request, "goods/catalog.html", context)
 
 
-def product(request) -> HttpResponse:
-    return render(request, "goods/product.html")
+def product(request, product_slug) -> HttpResponse:
+
+    product = Product.objects.get(slug=product_slug)
+    context: dict[str, Product] = {
+        "product": product,
+    }
+    return render(request, "goods/product.html", context=context)
