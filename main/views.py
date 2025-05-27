@@ -6,12 +6,11 @@ from goods.models import Category
 
 def index(request) -> HttpResponse:
 
-    categories = Category.objects.all().order_by('name')
+    categories = Category.objects.all().order_by("name")
 
     context: dict[str, str] = {
         "title": "Home - Главная",
         "content": "Магазин спортивного питания",
-        "categories": categories,
     }
     return render(request, "main/index.html", context)
 
