@@ -3,15 +3,19 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_list_or_404
 
 from goods.models import Product
+from goods.utils import q_search
 
 
-def catalog(request, category_slug) -> HttpResponse:
+def catalog(request, category_slug=None) -> HttpResponse:
     page = request.GET.get("page", 1)
     on_sale = request.GET.get("on_sale", None)
     order_by = request.GET.get("order_by", None)
+    query = request.GET.get("q", None)
 
     if category_slug == "all":
         goods = Product.objects.all()
+    elif query:
+        goods = q_search(query)
     else:
         goods = get_list_or_404(Product.objects.filter(category__slug=category_slug))
 
