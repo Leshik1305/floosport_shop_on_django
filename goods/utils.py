@@ -1,3 +1,4 @@
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.db.models import Q
 
 
@@ -8,7 +9,10 @@ def q_search(query):
     if query.isdigit() and len(query) <= 5:
         return Product.objects.filter(id=int(query))
 
-    return Product.objects.filter(description__search=query)
+    vector = SearchVector("name", "description")
+    query = SearchQuery(query)
+
+    return Product.objects.annotate(rank=SearchRank(vector, query)).order_by("-rank")
 
     # keywords = [word for word in query.split() if len(word) > 2]
     #
