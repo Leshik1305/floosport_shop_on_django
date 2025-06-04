@@ -19,6 +19,9 @@ def login(request):
                 auth.login(request, user)
                 messages.success(request, f"{username}, Вы вошли в аккаунт")
                 return HttpResponseRedirect(reverse("main:index"))
+                if requet.POST.get("next", None):
+                    return HttpResponseRedirect(request.POST.get("next"))
+                return HttpResponseRedirect(reverse("main:index"))
     else:
         form = UserLoginForm()
     context = {"title": "Авторизация", "form": form}
