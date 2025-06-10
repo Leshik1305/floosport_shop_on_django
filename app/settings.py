@@ -17,6 +17,7 @@ from django.conf.global_settings import (
     MEDIA_ROOT,
     AUTH_USER_MODEL,
     LOGIN_URL,
+    LOGIN_REDIRECT_URL,
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -154,3 +155,4 @@ INTERNAL_IPS = [
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.USER"
 LOGIN_URL = "/user/login/"
+LOGIN_REDIRECT_URL = "/"
